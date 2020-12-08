@@ -48,10 +48,7 @@ class HeatmapController extends Controller
         );
         $provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $subCategorieNaam = Heatmap::select('subcategorienaam')->orderBy('subcategorienaam')->distinct()->pluck('subcategorienaam')->toArray();
-        foreach ($provincieCount as $provincie) {
-            var_dump($provincie->provincie);
-        }
-        return view('googlemap')->with('provincies', $provincieCount)
+         return view('googlemap')->with('provincies', $provincieCount)
             ->with('subcategorienamen', $subCategorieNaam)
             ->with('maanden', $months);
         //return view('profile.edit');
