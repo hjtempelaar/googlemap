@@ -104,16 +104,23 @@
         var type;
         var data;
         let markers = [];
+        var markerClusterer = null;
 
-        function initMapRespons() {
+
+
+
+            function initMapRespons() {
 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 52, lng: 5},
                 zoom: 8,
-                mapTypeId: 'terrain'
+                mapTypeId: 'terrain',
+                maxZoom: 11,
+                streetViewControl: false,
             });
             // Get the event data (JSONP format)
             var script = document.createElement('script');
+                script.setAttribute('type',"application/javascript");
             script.setAttribute(
                 'src', '{{url('getfestivalheatmap')}}');
             document.getElementsByTagName('head')[0].appendChild(script);
@@ -151,7 +158,7 @@
             }
 
             // Add a marker clusterer to manage the markers.
-            new MarkerClusterer(map, markers, {
+            markerClusterer = new MarkerClusterer(map, markers, {
                 imagePath:
                     "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
             });
@@ -192,20 +199,21 @@
 
         function updateHeatmap() {
             console.log('we zijn hier');
-            deleteMarkers();
+                if (markerClusterer) {
+                    console.log('er is en cluster');
 
-            map.data.forEach(function (results) {
-                map.data.remove(results);
-            });
-            marker.setMap(null);
+                    markerClusterer.clearMarkers();
+                    markers = [];
+                }
 
 
             var script = document.createElement('script');
             var formData = new FormData(document.querySelector('form'))
+            script.setAttribute('type',"application/javascript");
             script.setAttribute(
                 'src',
                 //'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js');
-                '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie') + '&maand=' + formData.get('maand') + '&categorie=' + formData.get('categorie'));
+                '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie') + '&maand=' + formData.get('maand') + '&categorie=' + encodeURI(formData.get('categorie')));
             document.getElementsByTagName('head')[0].appendChild(script);
 
 
