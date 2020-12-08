@@ -8,7 +8,7 @@
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
-            height: 1100px;
+            height: 800px;
             width: 100%;
         }
 
@@ -87,6 +87,15 @@
                     <div id="map"></div>
                 </div>
             </div>
+            <div class="col-xl-3">
+                <div class="row">
+                    <h1>Geselecteerde Locatie</h1>
+                </div>
+                <div class="row" id="info">
+                   En hier komt de informatie
+                </div>
+
+            </div>
         </div>
 
 
@@ -154,7 +163,14 @@
                     //draggable: true,
                     //animation: google.maps.Animation.DROP,
                 });
+                marker.addListener("click", () => {
+                    console.log('we zijn hier marker click');
+                    document.getElementById('info').innerHTML = 'En weer een update' + marker.title;
+                });
+                console.log('we zijn hier marker ' + results.features[i].title);
                 markers.push(marker);
+
+
             }
 
             // Add a marker clusterer to manage the markers.
@@ -199,6 +215,7 @@
 
         function updateHeatmap() {
             console.log('we zijn hier');
+            document.getElementById('info').innerHTML = 'En weer een update';
                 if (markerClusterer) {
                     console.log('er is en cluster');
 
