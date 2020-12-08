@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_04_171347_create_heatmaps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_08_204747_create_heatmaps_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +164,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607440457972</updated>
-      <workItem from="1607440459163" duration="3962000" />
+      <workItem from="1607440459163" duration="4770000" />
     </task>
     <servers />
   </component>
