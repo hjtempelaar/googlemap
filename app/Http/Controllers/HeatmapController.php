@@ -175,7 +175,8 @@ class HeatmapController extends Controller
 
             );        }
         $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
-        return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
+        return response()->jsonp("eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");");
+        //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }
     public function jsonfestivalHeatMap(Request $request): string
     {
