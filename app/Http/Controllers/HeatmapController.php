@@ -175,63 +175,11 @@ class HeatmapController extends Controller
 
             );        }
         $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
-        return response()->jsonp('eqfeedcallback',$allfeatures,200,[]);
+        //return response()
+        //    ->json($allfeatures)
+        //    ->withCallback($request->input('eqfeedcallback'));
+        return response()->jsonp('eqfeedcallback',$allfeatures);
         //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }
-    public function jsonfestivalHeatMap(Request $request): string
-    {
-        // get edities for given daterange with location and magnitude
-        $festivals = Heatmap::where('provincie','!=', "");
-        if ($request->has('categorie')){
-            if (substr($request->get('categorie'),0,4) != "Alle") {
-                $festivals->where('subcategorienaam', '=', $request->get('categorie'));
-            }
-        }
-        if ($request->has('provincie')){
-            if (substr($request->get('provincie'),0,4) != "Alle") {
-                $festivals->where('provincie', '=', $request->get('provincie'));
-            }
-        }
-        if ($request->has('maand')){
-            if (substr($request->get('maand'),0,4) != "Alle") {
-                $months = array(
-                    "januari" => 1,
-                    "februari" => 2,
-                    "maart"  => 3,
-                    "april"  => 4,
-                    "mei"  => 5,
-                    "juni"  => 6,
-                    "Juli"  => 7,
-                    "augustus"  => 8,
-                    "september"  => 9,
-                    "oktober"  => 10,
-                    "november"  => 11,
-                    "december"  => 12
-                );
-                $month = $months[$request->get('maand')];
-                $festivals->whereRaw('MONTH(startdatum) = ?',[$month]);
-            }
 
-        }
-        //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
-
-        foreach ($festivals->get() as $festival) {
-
-
-            //{"type":"FeatureCollection",
-            //"features":[{"type":"Feature","properties":{"mag":3.3,"
-            $features[] = array(
-                'title' => $festival->evenement . " ({$festival->bereik}) ",
-                'type' => 'Feature',
-                'properties' => array('place' => $festival->evenement,
-                    'mag' => round($festival->bereik / 100, 0)),
-                'geometry' => array('type' => 'Point',
-                    'coordinates' => array((float)$festival->longitude, (float)$festival->latitude),
-                    'id' => $festival->evenement_id),
-
-            );        }
-        $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
-        return response()->jsonp("eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");");
-        //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
-    }
 }
