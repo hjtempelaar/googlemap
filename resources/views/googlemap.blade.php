@@ -2,8 +2,6 @@
 @extends('layouts.headers.googlemap')
 
 @section('content')
-
-
     <style type="text/css">
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
@@ -18,7 +16,6 @@
             margin: 0;
             padding: 0;
         }
-
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -27,7 +24,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-xl-3">
                 <div class="row">
@@ -37,7 +33,7 @@
                     <form>
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Provincie</label>
-                            <select class="form-control" name="provincie" data-toggle="select"
+                            <select class="form-control" name="provincie" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
                                 <option selected>Alle Provincies</option>
                                 @foreach($provincies as $provincie)
@@ -45,63 +41,54 @@
                                         ({{$provincie->totaal}})
                                     </option>
                                 @endforeach
-
                             </select>
-
                         </div>
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Categorie</label>
-                            <select class="form-control" name="categorie" data-toggle="select"
+                            <select class="form-control" name="categorie" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
                                 <option selected>Alle Categoriëen</option>
                                 @foreach($subcategorienamen as $subcategorienaam)
                                     <option>{{$subcategorienaam}}</option>
-
                                 @endforeach
                             </select>
-
                         </div>
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Maand</label>
-                            <select class="form-control" name="maand" data-toggle="select"
+                            <select class="form-control" name="maand" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
                                 <option selected>Alle Maanden</option>
                                 @foreach($maanden as $maand)
                                     <option>{{$maand}}</option>
-
                                 @endforeach
                             </select>
 
                         </div>
-
-                        <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
+                        {{-- <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
                             Filter
-                        </button>
+                        </button> --}}
                     </form>
+                    <h4>
+                        <span id="result_count">0</span> resultaten
+                    </h4>
                 </div>
 
             </div>
 
-            <div class="col-xl-6">
-                <div class="chart-heatmap">
-                    <div id="map"></div>
-                </div>
+            <div class="col-xl-9">
+                <div id="map"></div>
             </div>
-            <div class="col-xl-3">
+            {{-- <div class="col-xl-3">
                 <div class="row">
                     <h1>Geselecteerde Locatie</h1>
                 </div>
                 <div class="row" id="info">
                    En hier komt de informatie
                 </div>
-
-            </div>
+            </div> --}}
         </div>
-
-
         @include('layouts.footers.auth')
     </div>
-
 @endsection
 
 @push('js')
@@ -117,13 +104,7 @@
 		});
     }
 	function initMapRespons() {
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 52, lng: 5},
-			zoom: 8,
-			mapTypeId: 'terrain',
-			maxZoom: 11,
-			streetViewControl: false,
-		});
+		setMap();
 
 		// Get the event data (JSON format)
 		var script = document.createElement('script');
@@ -134,7 +115,10 @@
 	
 	// Function callback to get data
 	function eqfeedcallback (results) {
-		window.mapData = results.features;
+        window.mapData = results.features;
+        window.resultCount = results.features.length;
+
+        document.getElementById('result_count').innerHTML = resultCount;
 
 		var InfoWindow = new google.maps.InfoWindow();
 		function InfoWindowClose() { InfoWindow.close(); }
@@ -166,16 +150,31 @@
 					position: latLng,
 					optimized: !isIE  // makes SVG icons work in IE
 				});
-				google.maps.event.addListener(marker, 'click', InfoWindowClose);
+                google.maps.event.addListener(marker, 'click', InfoWindowClose);
+                google.maps.event.addListener(marker, 'mouseover', InfoWindowClose);
 				oms.addMarker(marker, function (e) {
                     var content = `
                         <div id="content">
                             <h4>${markerData.titel}</h4>
-                            <ul>
-                                <li>Van ${markerData.startdatum} t/m ${markerData.einddatum}</li>
-                                <li>${markerData.locatie}</li>
-                                <li>${markerData.plaats}</li>
-                                <li>${markerData.bezoekersaantal} personen</li>
+                            <ul class="fa-ul">
+                                <li>
+                                    <span class="fa-li">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                    Van ${markerData.startdatum} t/m ${markerData.einddatum}</li>
+                                <li>
+                                    <span class="fa-li">
+                                        <i class="fas fa-map-marker"></i>
+                                    </span>
+                                    ${markerData.locatie}<br>
+                                    ${markerData.plaats}
+                                </li>
+                                <li>
+                                    <span class="fa-li">
+                                        <i class="fas fa-users"></i>
+                                    </span>
+                                    ${markerData.bezoekersaantal} personen
+                                </li>
                             </ul>
                         </div>
                     `
@@ -209,7 +208,7 @@
 
 	// Filter data and reset map
 	function updateHeatmap() {
-		document.getElementById('info').innerHTML = 'En weer een update';
+		//document.getElementById('info').innerHTML = 'En weer een update';
 		setMap();
 
 		var script = document.createElement('script');
@@ -218,6 +217,7 @@
 		document.getElementsByTagName('head')[0].appendChild(script);
 	}
 </script>
+<script src="https://kit.fontawesome.com/4d9b955e19.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
 <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
