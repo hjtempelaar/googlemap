@@ -163,9 +163,10 @@
                     //draggable: true,
                     //animation: google.maps.Animation.DROP,
                 });
+
                 marker.addListener("click", () => {
                     console.log('we zijn hier marker click');
-                    document.getElementById('info').innerHTML = 'En weer een update' + marker.title;
+                    document.getElementById('info').innerHTML = 'En weer een update' + results.features[i].title;
                 });
                 console.log('we zijn hier marker ' + results.features[i].title);
                 markers.push(marker);
