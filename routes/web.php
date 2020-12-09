@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/jeroen',function (){
+    return response("hallo");
+});
 
 Route::get('/','App\Http\Controllers\HeatmapController@index');
 Route::get('/googlemap','App\Http\Controllers\HeatmapController@index');

@@ -122,7 +122,7 @@ class HeatmapController extends Controller
         //
     }
 
-    public function festivalHeatMap(Request $request): string
+    public function festivalHeatMap(Request $request)
     {
         // get edities for given daterange with location and magnitude
         $festivals = Heatmap::where('provincie','!=', "");
@@ -175,6 +175,7 @@ class HeatmapController extends Controller
 
             );        }
         $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
+        //return json_encode($allfeatures)->withCallback('');
         //return response()
         //    ->json($allfeatures)
         //    ->withCallback($request->input('eqfeedcallback'));
