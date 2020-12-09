@@ -99,7 +99,7 @@
 			center: {lat: 52, lng: 5},
 			zoom: 8,
 			mapTypeId: 'terrain',
-			maxZoom: 11,
+			maxZoom: 14,
 			streetViewControl: false,
 		});
     }
@@ -137,7 +137,7 @@
 				url: iconURL,
 				size: iconSize,
 				scaledSize: iconSize  // makes SVG icons work in IE
-			});
+            });
 		});
 
 		var markers = [];
@@ -151,8 +151,8 @@
 					optimized: !isIE  // makes SVG icons work in IE
 				});
                 google.maps.event.addListener(marker, 'click', InfoWindowClose);
-                google.maps.event.addListener(marker, 'mouseover', InfoWindowClose);
 				oms.addMarker(marker, function (e) {
+                    console.log(e);
                     var content = `
                         <div id="content">
                             <h4>${markerData.titel}</h4>
@@ -189,15 +189,10 @@
 		// Cluster markers
 		var markerClusterer = new MarkerClusterer(map, markers, {
 			imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-		});
-		minClusterZoom = 9;
+        });
+        // Needed to show Spiderfiers
+		minClusterZoom = 10;
 		markerClusterer.setMaxZoom(minClusterZoom);
-
-		google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
-			map.fitBounds(cluster.getBounds()); // Fit the bounds of the cluster clicked on
-			if( map.getZoom() > minClusterZoom + 1 ) // If zoomed in past 10 (first level without clustering), zoom out to 10
-				map.setZoom(minClusterZoom + 1);
-		});
 
 		// Set some vars to window for global use
 		window.map = map;
