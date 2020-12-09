@@ -227,7 +227,7 @@
 
             var script = document.createElement('script');
             var formData = new FormData(document.querySelector('form'))
-            script.setAttribute('type',"application/javascript");
+            script.setAttribute('type',"application/json");
             script.setAttribute(
                 'src',
                 //'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js');
