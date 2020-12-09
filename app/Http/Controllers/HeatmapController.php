@@ -183,7 +183,7 @@ class HeatmapController extends Controller
         }
 
 
-        $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
+        $allfeatures = array('count' => count($features),'type' => 'FeatureCollection', 'features' => $features);
         return response()->jsonp('eqfeedcallback', $allfeatures);
         //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }
