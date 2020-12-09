@@ -246,8 +246,7 @@
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+    
 
 
 @endpush
