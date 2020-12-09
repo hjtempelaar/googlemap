@@ -105,148 +105,120 @@
 @endsection
 
 @push('js')
-    <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-    <script>
+<script>var isIE = false;</script><!--[if IE]><script>isIE = true;</script><![endif]-->
+<script>
+    function setMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 52, lng: 5},
+			zoom: 8,
+			mapTypeId: 'terrain',
+			maxZoom: 11,
+			streetViewControl: false,
+		});
+    }
+	function initMapRespons() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 52, lng: 5},
+			zoom: 8,
+			mapTypeId: 'terrain',
+			maxZoom: 11,
+			streetViewControl: false,
+		});
 
-        // [START script-body]
-        var map;
-        var type;
-        var data;
-        let markers = [];
-        var markerClusterer = null;
+		// Get the event data (JSON format)
+		var script = document.createElement('script');
+			script.setAttribute('type',"application/javascript");
+			script.setAttribute('src', '{{url('getfestivalheatmap')}}');
+			document.getElementsByTagName('head')[0].appendChild(script);
+	}
+	
+	// Function callback to get data
+	function eqfeedcallback (results) {
+		window.mapData = results.features;
 
+		var InfoWindow = new google.maps.InfoWindow();
+		function InfoWindowClose() { InfoWindow.close(); }
+		google.maps.event.addListener(map, 'click', InfoWindowClose);
 
+		var oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
 
+		oms.addListener('format', function (marker, status) {
+			var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'marker-highlight.svg' :
+				status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'marker-plus.svg' :
+					status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'marker.svg' :
+						null;
 
-            function initMapRespons() {
+			var iconSize = new google.maps.Size(23, 32);
+			marker.setIcon({
+				url: iconURL,
+				size: iconSize,
+				scaledSize: iconSize  // makes SVG icons work in IE
+			});
+		});
 
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 52, lng: 5},
-                zoom: 8,
-                mapTypeId: 'terrain',
-                maxZoom: 11,
-                streetViewControl: false,
-            });
-            // Get the event data (JSONP format)
-            var script = document.createElement('script');
-                script.setAttribute('type',"application/javascript");
-            script.setAttribute(
-                'src', '{{url('getfestivalheatmap')}}');
-            document.getElementsByTagName('head')[0].appendChild(script);
-        }
+		var markers = [];
+		for (var i = 0, len = window.mapData.length; i < len; i++) {
+			(function () {  // make a closure over the marker and marker data
+				var markerData = window.mapData[i];
+				var coords = markerData.geometry.coordinates;
+				var latLng = new google.maps.LatLng(coords[1], coords[0]);
+				var marker = new google.maps.Marker({
+					position: latLng,
+					optimized: !isIE  // makes SVG icons work in IE
+				});
+				google.maps.event.addListener(marker, 'click', InfoWindowClose);
+				oms.addMarker(marker, function (e) {
+                    var content = `
+                        <div id="content">
+                            <h4>${markerData.titel}</h4>
+                            <ul>
+                                <li>Van ${markerData.startdatum} t/m ${markerData.einddatum}</li>
+                                <li>${markerData.locatie}</li>
+                                <li>${markerData.plaats}</li>
+                                <li>${markerData.bezoekersaantal} personen</li>
+                            </ul>
+                        </div>
+                    `
+					InfoWindow.setContent(content);
+					InfoWindow.open(map, marker);
+				});
 
-        // Loop through the results array and place a marker for each
-        // set of coordinates.
+				markers.push(marker);
+			})();
+		}
 
-        // variable to hold number of seconds before showing infoWindow on Mouseover event
-        var mouseoverTimeoutId = null;
+		// Cluster markers
+		var markerClusterer = new MarkerClusterer(map, markers, {
+			imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+		});
+		minClusterZoom = 9;
+		markerClusterer.setMaxZoom(minClusterZoom);
 
-        const eqfeedcallback = function (results) {
-            //var infoWnd = new google.maps.InfoWindow();
-            // create an InfoWindow -  for mouseclick
-            //var infoWnd2 = new google.maps.InfoWindow();
-            //var activeInfoWindow = new google.maps.InfoWindow();
-            for (let i = 0; i < results.features.length; i++) {
-                const coords = results.features[i].geometry.coordinates;
-                const latLng = new google.maps.LatLng(coords[1], coords[0]);
-                marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 12,
-                        fillColor: "#627BB7",
-                        fillOpacity: 0.5,
-                        strokeWeight: 0.4
-                    },
-                    title: results.features[i].title,
-                    //draggable: true,
-                    //animation: google.maps.Animation.DROP,
-                });
+		google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
+			map.fitBounds(cluster.getBounds()); // Fit the bounds of the cluster clicked on
+			if( map.getZoom() > minClusterZoom + 1 ) // If zoomed in past 10 (first level without clustering), zoom out to 10
+				map.setZoom(minClusterZoom + 1);
+		});
 
-                marker.addListener("click", () => {
-                    //console.log('we zijn hier marker click');
-                    document.getElementById('info').innerHTML = '<ul>' +
-                        '<li>' + results.features[i].title+ '</li>' +
-                        '<li>'+ results.features[i].datums + '</li>'+'</ul>';
-                });
-                //console.log('we zijn hier marker ' + results.features[i].title);
-                markers.push(marker);
+		// Set some vars to window for global use
+		window.map = map;
+		window.oms = oms;
+		window.makers = markers;
+		window.markerClusterer = markerClusterer;
+	}
 
+	// Filter data and reset map
+	function updateHeatmap() {
+		document.getElementById('info').innerHTML = 'En weer een update';
+		setMap();
 
-            }
-
-            // Add a marker clusterer to manage the markers.
-            markerClusterer = new MarkerClusterer(map, markers, {
-                imagePath:
-                    "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-            });
-
-
-        };
-
-
-        // Removes the markers from the map, but keeps them in the array.
-        function clearMarkers() {
-            setMapOnAll(null);
-        }
-
-        // Shows any markers currently in the array.
-        function showMarkers() {
-            setMapOnAll(map);
-        }
-
-        // Deletes all markers in the array by removing references to them.
-        function deleteMarkers() {
-            clearMarkers();
-            markers = [];
-        }
-
-        // Sets the map on all markers in the array.
-        function setMapOnAll(map) {
-            for (let i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
-
-
-        // Defines the callback function referenced in the jsonp file.
-        function eqfeed_callback(data) {
-
-
-        }
-
-        function updateHeatmap() {
-            console.log('we zijn hier');
-            document.getElementById('info').innerHTML = 'En weer een update';
-                if (markerClusterer) {
-                    console.log('er is en cluster');
-
-                    markerClusterer.clearMarkers();
-                    markers = [];
-                }
-
-
-            var script = document.createElement('script');
-            var formData = new FormData(document.querySelector('form'))
-            script.setAttribute(
-                'src',
-                //'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js');
-                '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie') + '&maand=' + formData.get('maand') + '&categorie=' + encodeURI(formData.get('categorie')));
-            document.getElementsByTagName('head')[0].appendChild(script);
-
-
-        }
-
-        // Deletes all markers in the array by removing references to them.
-
-
-        // [END script-body]
-
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
-    
-
-
+		var script = document.createElement('script');
+		var formData = new FormData(document.querySelector('form'))
+		script.setAttribute('src','{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie') + '&maand=' + formData.get('maand') + '&categorie=' + encodeURI(formData.get('categorie')));
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
+</script>
+<script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
+<script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 @endpush
