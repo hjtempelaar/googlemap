@@ -165,10 +165,12 @@
                 });
 
                 marker.addListener("click", () => {
-                    console.log('we zijn hier marker click');
-                    document.getElementById('info').innerHTML = 'En weer een update' + results.features[i].title;
+                    //console.log('we zijn hier marker click');
+                    document.getElementById('info').innerHTML = '<ul>' +
+                        '<li>' + results.features[i].title+ '</li>' +
+                        '<li>'+ results.features[i].datums + '</li>'+'</ul>';
                 });
-                console.log('we zijn hier marker ' + results.features[i].title);
+                //console.log('we zijn hier marker ' + results.features[i].title);
                 markers.push(marker);
 
 

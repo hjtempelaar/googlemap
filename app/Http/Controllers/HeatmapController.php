@@ -166,6 +166,7 @@ class HeatmapController extends Controller
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
             $features[] = array(
                 'title' => $festival->evenement . " ({$festival->bereik}) ",
+                'datums' => "Van: " . $festival->startdatum ." Tot en met:  " . $festival->einddatum,
                 'type' => 'Feature',
                 'properties' => array('place' => $festival->evenement,
                     'mag' => round($festival->bereik / 100, 0)),
