@@ -60,7 +60,6 @@
                                 <option selected>Alle Maanden</option>
                                 @foreach($maanden as $maand)
                                     <option>{{$maand}}</option>
-
                                 @endforeach
                             </select>
 
