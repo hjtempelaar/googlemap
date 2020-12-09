@@ -166,7 +166,8 @@ class HeatmapController extends Controller
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
             $features[] = array(
                 'titel' => $festival->evenement,
-                'datums' => "Van: " . $festival->startdatum ." Tot en met:  " . $festival->einddatum,
+                'startdatum' => $festival->startdatum,
+                'einddatum' => $festival->einddatum,
                 'locatie' => $festival->locatienaam,
                 'plaats' => $festival->nen_plaats . "(". $festival->gemeente . ")",
                 'bezoekersaantal' =>$festival->bereik,
@@ -179,10 +180,6 @@ class HeatmapController extends Controller
 
             );        }
         $allfeatures = array('type' => 'FeatureCollection', 'features' => $features);
-        //return json_encode($allfeatures)->withCallback('');
-        //return response()
-        //    ->json($allfeatures)
-        //    ->withCallback($request->input('eqfeedcallback'));
         return response()->jsonp('eqfeedcallback',$allfeatures);
         //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }
