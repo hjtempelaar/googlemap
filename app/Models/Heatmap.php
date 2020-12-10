@@ -87,13 +87,9 @@ class Heatmap extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['zoekstring'];
+
     //
 
-    public function getZoekstringAttribute($value)
-    {
-        return strtolower($this->evenement . ' ' . $this->nen_plaats . ' '. $this->gemeente);
-    }
 
 
 }

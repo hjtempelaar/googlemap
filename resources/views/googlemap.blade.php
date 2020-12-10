@@ -234,7 +234,7 @@
             setMap();
 
             var script = document.createElement('script');
-            var formData = new FormData(document.querySelector('form'))
+            var formData = new FormData(document.querySelector('form'));
             script.setAttribute('src', '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie')
                 + '&maand=' + formData.get('maand')
                 + '&categorie=' + encodeURI(formData.get('categorie'))
