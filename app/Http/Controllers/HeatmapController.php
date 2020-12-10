@@ -24,8 +24,16 @@ class HeatmapController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('m')){
+            if ($request->get('m') != "sdkkjdfjaksdfaksdjfakjdfkasdf"){
+                return response("Wil je ook zo'n mooie monitor?");
+
+            }
+        } else {
+            return response("");
+        }
         //
         $provincie = Heatmap::select('provincie')->distinct()->orderBy('provincie')->pluck('provincie')->toArray();
         //$maanden = Heatmap::select(DB::raw('SELECT DISTINCT  MONTHNAME(startdatum) as maanden'));
