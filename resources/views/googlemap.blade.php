@@ -152,7 +152,6 @@
 				});
                 google.maps.event.addListener(marker, 'click', InfoWindowClose);
 				oms.addMarker(marker, function (e) {
-                    console.log(e);
                     var content = `
                         <div id="content">
                             <h4>${markerData.titel}</h4>
@@ -168,6 +167,12 @@
                                     </span>
                                     ${markerData.locatie}<br>
                                     ${markerData.plaats}
+                                </li>
+                                <li>
+                                    <span class="fa-li">
+                                        <i class="fas fa-list-music"></i>
+                                    </span>
+                                    ${markerData.genre}
                                 </li>
                                 <li>
                                     <span class="fa-li">
