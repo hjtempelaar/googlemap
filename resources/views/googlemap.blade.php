@@ -112,6 +112,8 @@
                 streetViewControl: false,
             });
         }
+        const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let labelIndex = 0;
 
         function initMapRespons() {
             setMap();
@@ -140,6 +142,7 @@
 
             var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
 
+
             oms.addListener('format', function (marker, status) {
                 var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'marker-highlight.svg' :
                     status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'marker-plus.svg' :
@@ -162,9 +165,15 @@
                     var latLng = new google.maps.LatLng(coords[1], coords[0]);
                     var marker = new google.maps.Marker({
                         position: latLng,
-                        optimized: !isIE  // makes SVG icons work in IE
+                        //label: labels[i % labels.length],
+                        optimized: !isIE  // makes SVG icons work in IE,
+
                     });
+
                     google.maps.event.addListener(marker, 'click', InfoWindowClose);
+                    google.maps.event.addListener(marker,'mouseover',function (){
+                        console.log('mouse over event');
+                    });
                     oms.addMarker(marker, function (e) {
                         var content = `
                         <div id="content">
@@ -192,7 +201,7 @@
                                     <span class="fa-li">
                                         <i class="fas fa-users"></i>
                                     </span>
-                                    ${markerData.bezoekersaantal} bezoekers
+                                    ${markerData.bezoekersaantal} bezoeken
                                 </li>
                             </ul>
                         </div>
