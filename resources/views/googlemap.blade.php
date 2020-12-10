@@ -44,10 +44,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Categorie</label>
+                            <label for="example-text-input" class="form-control-label">Genre</label>
                             <select class="form-control" name="categorie" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
-                                <option selected>Alle Categoriëen</option>
+                                <option selected>Alle Genres</option>
                                 @foreach($subcategorienamen as $subcategorienaam)
                                     <option>{{$subcategorienaam}}</option>
                                 @endforeach
@@ -112,7 +112,7 @@
 			script.setAttribute('src', '{{url('getfestivalheatmap')}}');
 			document.getElementsByTagName('head')[0].appendChild(script);
 	}
-	
+
 	// Function callback to get data
 	function eqfeedcallback (results) {
         window.mapData = results.features;
@@ -178,7 +178,7 @@
                                     <span class="fa-li">
                                         <i class="fas fa-users"></i>
                                     </span>
-                                    ${markerData.bezoekersaantal} personen
+                                    ${markerData.bezoekersaantal} bezoekers
                                 </li>
                             </ul>
                         </div>
