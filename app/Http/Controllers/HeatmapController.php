@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\DB;
 
 class HeatmapController extends Controller
 {
+    public function zoek($zoek){
+        $festivals = Heatmap::where('provincie', '!=', "");
+        if ($zoek != '') {
+            $festivals->where('evenement', 'like', '%' . $zoek . '%')
+                ->orWhere('nen_plaats', 'like', '%' . strtoupper($zoek) . '%')
+                ->orWhere('gemeente', 'like', '%' . $zoek . '%');
+        }
+        dd($festivals->get()->toarray());
+
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -157,6 +168,15 @@ class HeatmapController extends Controller
             }
 
         }
+        if ($request->has('zoek')){
+            $zoek = $request->get('zoek');
+            if ($zoek!= '' || $zoek != 'null') {
+                $festivals->where('evenement', 'like', '%' . $zoek . '%')
+                    ->orWhere('nen_plaats', 'like', '%' . strtoupper($zoek) . '%')
+                    ->orWhere('gemeente', 'like', '%' . $zoek . '%');
+            }
+        }
+
         //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $features = [];
         foreach ($festivals->get() as $festival) {

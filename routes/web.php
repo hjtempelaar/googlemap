@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/jeroen',function (){
     return response("hallo");
 });
-
+Route::get('/zoek/{zoek}','App\Http\Controllers\HeatmapController@zoek');
 Route::get('/','App\Http\Controllers\HeatmapController@index');
 Route::get('/googlemap','App\Http\Controllers\HeatmapController@index');
 Route::get('getfestivalheatmap','App\Http\Controllers\HeatmapController@festivalHeatMap');
