@@ -3,7 +3,7 @@
         <div class="header-body text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-8">
-                    <h1 class="text-white">{{ __('Welkom bij de Interactieve Festival Monitor 2019.') }}</h1>
+                    <h1 class="text-blue">{{ __('Welkom bij de Interactieve Festival Monitor 2020.') }}</h1>
                 </div>
             </div>
         </div>
