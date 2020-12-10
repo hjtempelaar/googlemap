@@ -159,10 +159,7 @@ class HeatmapController extends Controller
         }
         //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $features = [];
-
         foreach ($festivals->get() as $festival) {
-
-
             //{"type":"FeatureCollection",
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
             $features[] = array(
@@ -171,6 +168,7 @@ class HeatmapController extends Controller
                 'einddatum' => $festival->einddatum,
                 'locatie' => $festival->locatienaam,
                 'plaats' => $festival->nen_plaats . "(" . $festival->gemeente . ")",
+                'genre' => $festival->subcategorienaam,
                 'bezoekersaantal' => $festival->bereik,
                 'type' => 'Feature',
                 'properties' => array('place' => $festival->evenement,
