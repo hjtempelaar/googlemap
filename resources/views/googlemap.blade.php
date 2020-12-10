@@ -30,7 +30,7 @@
                     <h1>Filters</h1>
                 </div>
                 <div class="row">
-                    <form>
+                    <form action="#">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Provincie</label>
                             <select class="form-control" name="provincie" data-toggle="select"
@@ -67,22 +67,14 @@
 
                         </div>
                         <div class="form-group">
-                            <div>
-                                <label for="example-text-input" class="form-control-label">Zoeken...</label>
-                            </div>
-                            <div style="float:left">
-                                <input class="form-control" name="zoek" type="text">
-                            </div>
-                            <div>
-                                <button type="submit">Zoek</button>
-                            </div>
-
-
-
+                            <label for="example-text-input" class="form-control-label">Zoeken...</label>
+                            <input class="form-control" name="zoek" type="text">
                         </div>
-                        {{-- <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
-                            Filter
-                        </button> --}}
+                        <div class="form-group">
+                            <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
+                                Filter
+                            </button>
+                        </div>
                     </form>
                     <h4>
                         <span id="result_count">0</span> resultaten
