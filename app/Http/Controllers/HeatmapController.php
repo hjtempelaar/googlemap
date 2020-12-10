@@ -171,9 +171,7 @@ class HeatmapController extends Controller
         if ($request->has('zoek')){
             $zoek = $request->get('zoek');
             if ($zoek != '' || $zoek != 'null') {
-              //  $festivals->where('evenement', 'like', '%' . $zoek . '%')
-              //     ->orWhere('nen_plaats', 'like', '%' . strtoupper($zoek) . '%')
-             //       ->orWhere('gemeente', 'like', '%' . $zoek . '%');
+               $festivals->where('zoekstring', 'like', '%' . $zoek . '%');
             }
         }
 
