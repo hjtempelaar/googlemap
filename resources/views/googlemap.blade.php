@@ -170,43 +170,58 @@
 
                     });
 
-                    google.maps.event.addListener(marker, 'click', InfoWindowClose);
-                    google.maps.event.addListener(marker,'mouseover',function (){
-                        console.log('mouse over event');
+                    // Listen to mouseover
+                    google.maps.event.addListener(marker, 'mouseover',function() {
+                        var infoWindowHoverContent = `
+                            <div id="content">
+                                <h4>${markerData.titel}</h4>
+                            </div>
+                        `
+                        InfoWindow.setContent(infoWindowHoverContent);
+                        InfoWindow.open(map, marker);
                     });
+
+                    // Listen to mouseout
+                    google.maps.event.addListener(marker, 'mouseout', function() {
+                        InfoWindow.close();
+                    });
+
+                    // Listen to click
+                    google.maps.event.addListener(marker, 'click', InfoWindowClose);
                     oms.addMarker(marker, function (e) {
-                        var content = `
-                        <div id="content">
-                            <h4>${markerData.titel}</h4>
-                            <ul class="fa-ul">
-                                <li>
-                                    <span class="fa-li">
-                                        <i class="fas fa-calendar"></i>
-                                    </span>
-                                    Van ${markerData.startdatum} t/m ${markerData.einddatum}</li>
-                                <li>
-                                    <span class="fa-li">
-                                        <i class="fas fa-map-marker"></i>
-                                    </span>
-                                    ${markerData.locatie}<br>
-                                    ${markerData.plaats}
-                                </li>
-                                <li>
-                                    <span class="fa-li">
-                                        <i class="fas fa-list-music"></i>
-                                    </span>
-                                    ${markerData.genre}
-                                </li>
-                                <li>
-                                    <span class="fa-li">
-                                        <i class="fas fa-users"></i>
-                                    </span>
-                                    ${markerData.bezoekersaantal} bezoeken
-                                </li>
-                            </ul>
-                        </div>
-                    `
-                        InfoWindow.setContent(content);
+                        var infoWindowClickContent = `
+                            <div id="content">
+                                <h4>${markerData.titel}</h4>
+                                <ul class="fa-ul">
+                                    <li>
+                                        <span class="fa-li">
+                                            <i class="fas fa-calendar"></i>
+                                        </span>
+                                        Van ${markerData.startdatum} t/m ${markerData.einddatum}</li>
+                                    <li>
+                                        <span class="fa-li">
+                                            <i class="fas fa-map-marker"></i>
+                                        </span>
+                                        ${markerData.locatie}<br>
+                                        ${markerData.plaats}
+                                    </li>
+                                    <li>
+                                        <span class="fa-li">
+                                            <i class="fas fa-list-music"></i>
+                                        </span>
+                                        ${markerData.genre}
+                                    </li>
+                                    <li>
+                                        <span class="fa-li">
+                                            <i class="fas fa-users"></i>
+                                        </span>
+                                        ${markerData.bezoekersaantal} bezoeken
+                                    </li>
+                                </ul>
+                            </div>
+                        `
+                    
+                        InfoWindow.setContent(infoWindowClickContent);
                         InfoWindow.open(map, marker);
                     });
 
