@@ -33,11 +33,9 @@
                     <form action="#">
                         <div class="form-group">
                             <label class="form-control-label">Aantal bezoeken</label>
-                            <input type="text" id="aantal_bezoeken" class="form-control readonly" readonly>
+                            <p id="aantal_bezoeken">0</p>
                             <input type="hidden" id="aantal_bezoeken_min" name="aantal_bezoeken_min">
                             <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
-                        </div>
-                        <div class="form-group">
                             <div id="slider-range"></div>
                         </div>
                         <div class="form-group">
@@ -277,6 +275,10 @@
             document.getElementsByTagName('head')[0].appendChild(script);
         }
 
+        function numberWithDots(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
         $( "#slider-range" ).slider({
             range: true,
             min: 0,
@@ -284,14 +286,27 @@
             step: 10000,
             values: [ 0, 2000000 ],
             slide: function( event, ui ) {
-                $( "#aantal_bezoeken" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+                // On slide
+                $( "#aantal_bezoeken_min" ).val( ui.values[ 0 ] );
+                $( "#aantal_bezoeken_max" ).val( ui.values[ 1 ] );
+
+                // Formatted output
+                var min = numberWithDots(ui.values[ 0 ]);
+                var max = numberWithDots(ui.values[ 1 ]);
+                $( "#aantal_bezoeken" ).text( min + " - " + max );
             }
         });
+
+        // Set inital state
         $( "#aantal_bezoeken_min" ).val( $( "#slider-range" ).slider( "values", 0 ) );
         $( "#aantal_bezoeken_max" ).val( $( "#slider-range" ).slider( "values", 1 ) );
-        $( "#aantal_bezoeken" ).val( $( "#slider-range" ).slider( "values", 0 ) + " - " + $( "#slider-range" ).slider( "values", 1 ) );
 
-        // On slider change
+        // Formatted output
+        var min = numberWithDots($( "#slider-range" ).slider( "values", 0 ));
+        var max = numberWithDots($( "#slider-range" ).slider( "values", 1 ));
+        $( "#aantal_bezoeken" ).text( min + " - " + max );
+        
+        // On slide change
         $( "#slider-range" ).on( "slidechange", function( event, ui ) {
             updateHeatmap();
         } );
