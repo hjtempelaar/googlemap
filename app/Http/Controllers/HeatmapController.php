@@ -183,6 +183,17 @@ class HeatmapController extends Controller
                $festivals->where('zoekstring', 'like', '%' . $zoek . '%');
             }
         }
+        if ($request->has('aantal_bezoeken_min') && $request->has('aantal_bezoeken_max')) {
+            $aantal_bezoeken_min = $request->get('aantal_bezoeken_min');
+            $aantal_bezoeken_max = $request->get('aantal_bezoeken_max');
+
+            if ($aantal_bezoeken_min != '' || $aantal_bezoeken_min != 'null') {
+                $festivals->where('bereik', '>=', $aantal_bezoeken_min);
+                $festivals->where('bereik', '<=', $aantal_bezoeken_max);
+            }
+        
+        }
+
 
         //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $features = [];

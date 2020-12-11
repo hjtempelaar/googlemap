@@ -84,10 +84,11 @@
                                 Filter
                             </button>
                         </div>
+                        <h4>
+                            <span id="result_count">0</span> resultaten
+                        </h4>
                     </form>
-                    <h4>
-                        <span id="result_count">0</span> resultaten
-                    </h4>
+
                 </div>
 
             </div>
@@ -236,7 +237,7 @@
                                 </ul>
                             </div>
                         `
-                    
+
                         InfoWindow.setContent(infoWindowClickContent);
                         InfoWindow.open(map, marker);
                     });
