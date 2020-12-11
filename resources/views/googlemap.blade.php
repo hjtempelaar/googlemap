@@ -175,6 +175,7 @@
                         var infoWindowHoverContent = `
                             <div id="content">
                                 <h4>${markerData.titel}</h4>
+                                <p class="m-0"><em><small>Klik voor details</small></em></p>
                             </div>
                         `
                         InfoWindow.setContent(infoWindowHoverContent);
