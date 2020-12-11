@@ -32,6 +32,15 @@
                 <div class="row">
                     <form action="#">
                         <div class="form-group">
+                            <label class="form-control-label">Aantal bezoeken</label>
+                            <input type="text" id="aantal_bezoeken" class="form-control readonly" readonly>
+                            <input type="hidden" id="aantal_bezoeken_min" name="aantal_bezoeken_min">
+                            <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
+                        </div>
+                        <div class="form-group">
+                            <div id="slider-range"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Provincie</label>
                             <select class="form-control" name="provincie" data-toggle="select"
                                     onchange="updateHeatmap()"
@@ -100,9 +109,16 @@
 @endsection
 
 @push('js')
-    <script>var isIE = false;</script><!--[if IE]>
-    <script>isIE = true;</script><![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://kit.fontawesome.com/4d9b955e19.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
+    <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
     <script>
+        var isIE = false; // Script toevoegen voor deze check
+
         function setMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 52, lng: 5},
@@ -167,7 +183,6 @@
                         position: latLng,
                         //label: labels[i % labels.length],
                         optimized: !isIE  // makes SVG icons work in IE,
-
                     });
 
                     // Listen to mouseover
@@ -255,14 +270,29 @@
             script.setAttribute('src', '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie')
                 + '&maand=' + formData.get('maand')
                 + '&categorie=' + encodeURI(formData.get('categorie'))
-                + '&zoek=' + formData.get('zoek'));
+                + '&zoek=' + formData.get('zoek')
+                + '&aantal_bezoeken_min=' + formData.get('aantal_bezoeken_min')
+                + '&aantal_bezoeken_max=' + formData.get('aantal_bezoeken_max'));
             document.getElementsByTagName('head')[0].appendChild(script);
         }
+
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0,
+            max: 2000000,
+            step: 10000,
+            values: [ 0, 2000000 ],
+            slide: function( event, ui ) {
+                $( "#aantal_bezoeken" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            }
+        });
+        $( "#aantal_bezoeken_min" ).val( $( "#slider-range" ).slider( "values", 0 ) );
+        $( "#aantal_bezoeken_max" ).val( $( "#slider-range" ).slider( "values", 1 ) );
+        $( "#aantal_bezoeken" ).val( $( "#slider-range" ).slider( "values", 0 ) + " - " + $( "#slider-range" ).slider( "values", 1 ) );
+
+        // On slider change
+        $( "#slider-range" ).on( "slidechange", function( event, ui ) {
+            updateHeatmap();
+        } );
     </script>
-    <script src="https://kit.fontawesome.com/4d9b955e19.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
-    <script async defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 @endpush
