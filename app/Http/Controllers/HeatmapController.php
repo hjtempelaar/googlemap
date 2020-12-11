@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Heatmap;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -190,8 +191,8 @@ class HeatmapController extends Controller
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
             $features[] = array(
                 'titel' => $festival->evenement,
-                'startdatum' => $festival->startdatum,
-                'einddatum' => $festival->einddatum,
+                'startdatum' => Carbon::createFromFormat('Y-m-d',$festival->startdatum)->format('d-m-Y'),
+                'einddatum' => Carbon::createFromFormat('Y-m-d',$festival->einddatum)->format('d-m-Y'),
                 'locatie' => $festival->locatienaam,
                 'plaats' => $festival->nen_plaats . "(" . $festival->gemeente . ")",
                 'genre' => $festival->subcategorienaam,
