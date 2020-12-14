@@ -120,7 +120,7 @@
 
         function setMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 52, lng: 5},
+                center: {lat: 52.3, lng: 5},
                 zoom: 8,
                 mapTypeId: 'terrain',
                 maxZoom: 14,
@@ -305,7 +305,7 @@
         var min = numberWithDots($( "#slider-range" ).slider( "values", 0 ));
         var max = numberWithDots($( "#slider-range" ).slider( "values", 1 ));
         $( "#aantal_bezoeken" ).text( min + " - " + max );
-        
+
         // On slide change
         $( "#slider-range" ).on( "slidechange", function( event, ui ) {
             updateHeatmap();

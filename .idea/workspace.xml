@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/googlemap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/googlemap.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/googlemap.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +133,16 @@
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/laravel-frontend-presets/argon" />
       <path value="$PROJECT_DIR$/vendor/laravel/legacy-factories" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
     </include_path>
   </component>
   <component name="ProjectId" id="1lNbMytUVd3YErg01SDRyFdFxq2" />
@@ -168,7 +181,10 @@
       <option name="presentableId" value="Default" />
       <updated>1607440457972</updated>
       <workItem from="1607440459163" duration="23156000" />
-      <workItem from="1607606074757" duration="153000" />
+      <workItem from="1607606074757" duration="22106000" />
+      <workItem from="1607681859890" duration="1106000" />
+      <workItem from="1607693535364" duration="5328000" />
+      <workItem from="1607716311806" duration="11000" />
     </task>
     <servers />
   </component>

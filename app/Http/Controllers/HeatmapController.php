@@ -191,7 +191,7 @@ class HeatmapController extends Controller
                 $festivals->where('bereik', '>=', $aantal_bezoeken_min);
                 $festivals->where('bereik', '<=', $aantal_bezoeken_max);
             }
-        
+
         }
 
 
