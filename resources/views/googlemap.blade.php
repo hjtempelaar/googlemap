@@ -115,8 +115,10 @@
                             <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
                                 Filter
                             </button>
-                            <button type="button" onclick="resetFilter()" class="btn btn-success btn-lg btn-block">
-                                Filter opheffen
+                        </div>
+                        <div class="form-group">
+                            <button type="button" onclick="initMapRespons(), form.reset()" class="btn btn-success btn-lg btn-block">
+                                Filter Reset
                             </button>
                         </div>
                         <h4>
