@@ -186,6 +186,12 @@ class HeatmapController extends Controller
         if ($request->has('aantal_bezoeken_min') && $request->has('aantal_bezoeken_max')) {
             $aantal_bezoeken_min = $request->get('aantal_bezoeken_min');
             $aantal_bezoeken_max = $request->get('aantal_bezoeken_max');
+            if ($aantal_bezoeken_min > $aantal_bezoeken_max){
+                // wisselen!
+                $effe = $aantal_bezoeken_max;
+                $aantal_bezoeken_max = $aantal_bezoeken_min;
+                $aantal_bezoeken_min = $effe;
+            }
 
             if ($aantal_bezoeken_min != '' || $aantal_bezoeken_min != 'null') {
                 $festivals->where('bereik', '>=', $aantal_bezoeken_min);
@@ -193,6 +199,7 @@ class HeatmapController extends Controller
             }
 
         }
+
 
 
         //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();

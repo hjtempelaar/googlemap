@@ -31,13 +31,13 @@
                 </div>
                 <div class="row">
                     <form action="#">
-                        <div class="form-group">
+<!--                        <div class="form-group">
                             <label class="form-control-label">Aantal bezoeken</label>
                             <p id="aantal_bezoeken">0</p>
                             <input type="hidden" id="aantal_bezoeken_min" name="aantal_bezoeken_min">
                             <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
                             <div id="slider-range"></div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Provincie</label>
                             <select class="form-control" name="provincie" data-toggle="select"
@@ -72,6 +72,40 @@
                                 @endforeach
                             </select>
 
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">aantal bezoeken vanaf</label>
+                            <select class="form-control" name="bezoeken_min" data-toggle="select"
+                                    onchange="updateHeatmap()"
+                                    data-placeholder="Select options">
+                                <option value="0" selected>Bezoeken Vanaf:</option>
+                                <option value='0'>0</option>
+                                <option value='3000'>3.000</option>
+                                <option value='5000'>5.000</option>
+                                <option value='10000'>10.000</option>
+                                <option value='50000'>50.000</option>
+                                <option value='100000'>100.000</option>
+                                <option value='200000'>200.000</option>
+                                <option value='500000'>500.000</option>
+                                <option value='2000000'>2.000.000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">aantal bezoeken tot en met</label>
+                            <select class="form-control" name="bezoeken_max" data-toggle="select"
+                                    onchange="updateHeatmap()"
+                                    data-placeholder="Select options">
+                                <option  value="50000000" selected>Bezoeken tot en met:</option>
+                                <option value='0'>0</option>
+                                <option value='3000'>3.000</option>
+                                <option value='5000'>5.000</option>
+                                <option value='10000'>10.000</option>
+                                <option value='50000'>50.000</option>
+                                <option value='100000'>100.000</option>
+                                <option value='200000'>200.000</option>
+                                <option value='500000'>500.000</option>
+                                <option value='2000000'>2.000.000</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Zoeken...</label>
@@ -113,8 +147,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
-    <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
+    <script async defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
     <script>
         var isIE = false; // Script toevoegen voor deze check
 
@@ -127,6 +163,7 @@
                 streetViewControl: false,
             });
         }
+
         const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let labelIndex = 0;
 
@@ -185,7 +222,7 @@
                     });
 
                     // Listen to mouseover
-                    google.maps.event.addListener(marker, 'mouseover',function() {
+                    google.maps.event.addListener(marker, 'mouseover', function () {
                         var infoWindowHoverContent = `
                             <div id="content">
                                 <h4>${markerData.titel}</h4>
@@ -197,7 +234,7 @@
                     });
 
                     // Listen to mouseout
-                    google.maps.event.addListener(marker, 'mouseout', function() {
+                    google.maps.event.addListener(marker, 'mouseout', function () {
                         InfoWindow.close();
                     });
 
@@ -270,8 +307,8 @@
                 + '&maand=' + formData.get('maand')
                 + '&categorie=' + encodeURI(formData.get('categorie'))
                 + '&zoek=' + formData.get('zoek')
-                + '&aantal_bezoeken_min=' + formData.get('aantal_bezoeken_min')
-                + '&aantal_bezoeken_max=' + formData.get('aantal_bezoeken_max'));
+                + '&aantal_bezoeken_min=' + formData.get('bezoeken_min')
+                + '&aantal_bezoeken_max=' + formData.get('bezoeken_max'));
             document.getElementsByTagName('head')[0].appendChild(script);
         }
 
@@ -279,36 +316,36 @@
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        $( "#slider-range" ).slider({
+        $("#slider-range").slider({
             range: true,
             min: 0,
             max: 2000000,
             step: 10000,
-            values: [ 0, 2000000 ],
-            slide: function( event, ui ) {
+            values: [0, 2000000],
+            slide: function (event, ui) {
                 // On slide
-                $( "#aantal_bezoeken_min" ).val( ui.values[ 0 ] );
-                $( "#aantal_bezoeken_max" ).val( ui.values[ 1 ] );
+                $("#aantal_bezoeken_min").val(ui.values[0]);
+                $("#aantal_bezoeken_max").val(ui.values[1]);
 
                 // Formatted output
-                var min = numberWithDots(ui.values[ 0 ]);
-                var max = numberWithDots(ui.values[ 1 ]);
-                $( "#aantal_bezoeken" ).text( min + " - " + max );
+                var min = numberWithDots(ui.values[0]);
+                var max = numberWithDots(ui.values[1]);
+                $("#aantal_bezoeken").text(min + " - " + max);
             }
         });
 
         // Set inital state
-        $( "#aantal_bezoeken_min" ).val( $( "#slider-range" ).slider( "values", 0 ) );
-        $( "#aantal_bezoeken_max" ).val( $( "#slider-range" ).slider( "values", 1 ) );
+        $("#aantal_bezoeken_min").val($("#slider-range").slider("values", 0));
+        $("#aantal_bezoeken_max").val($("#slider-range").slider("values", 1));
 
         // Formatted output
-        var min = numberWithDots($( "#slider-range" ).slider( "values", 0 ));
-        var max = numberWithDots($( "#slider-range" ).slider( "values", 1 ));
-        $( "#aantal_bezoeken" ).text( min + " - " + max );
+        var min = numberWithDots($("#slider-range").slider("values", 0));
+        var max = numberWithDots($("#slider-range").slider("values", 1));
+        $("#aantal_bezoeken").text(min + " - " + max);
 
         // On slide change
-        $( "#slider-range" ).on( "slidechange", function( event, ui ) {
+        $("#slider-range").on("slidechange", function (event, ui) {
             updateHeatmap();
-        } );
+        });
     </script>
 @endpush
