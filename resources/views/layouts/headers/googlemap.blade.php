@@ -7,7 +7,7 @@
                      src="https://respons.nl/wp-content/uploads/2019/06/Respons-2018_witte-gloed_NL_resized.png">
             </div>
             <div class="col-lg-8 col-md-8">
-                <h1 class="text-black-50" style="position: absolute; bottom: 77px; left: 0;">{{ __('Welkom bij de Interactieve Festival Monitor 2020') }}</h1>
+                <h1 class="text-black-50" style="position: absolute; bottom: 77px; left: 0;">{{ __('Welkom bij de interactieve Festival Monitor 2020') }}</h1>
             </div>
         </div>
     </div>

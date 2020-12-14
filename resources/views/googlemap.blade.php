@@ -115,6 +115,9 @@
                             <button type="button" onclick="updateHeatmap()" class="btn btn-success btn-lg btn-block">
                                 Filter
                             </button>
+                            <button type="button" onclick="resetFilter()" class="btn btn-success btn-lg btn-block">
+                                Filter opheffen
+                            </button>
                         </div>
                         <h4>
                             <span id="result_count">0</span> resultaten
