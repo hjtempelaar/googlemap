@@ -2,21 +2,7 @@
 @extends('layouts.headers.googlemap')
 
 @section('content')
-    <style type="text/css">
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-        #map {
-            height: 800px;
-            width: 100%;
-        }
 
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-6 mb-5 mb-xl-0">
@@ -25,7 +11,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-xl-3" >
+                <div style="margin-left: 20px;">
                 <div class="row">
                     <h1>Filters</h1>
                 </div>
@@ -125,6 +112,7 @@
                         </h4>
                     </form>
 
+                </div>
                 </div>
 
             </div>

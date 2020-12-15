@@ -17,6 +17,29 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <style type="text/css">
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 800px;
+                width: 100%;
+            }
+
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            @media ( max-width: 26.25em ) {
+                h1 {
+                    font-size: 15px;
+                }
+                .festival_header{
+                    margin-bottom: 0px; !important;
+                }
+            }
+        </style>
     </head>
     <body class="{{ $class ?? '' }}">
         <div class="main-content">
