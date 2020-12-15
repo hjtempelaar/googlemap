@@ -46,7 +46,6 @@
                                 <option selected>Alle Provincies</option>
                                 @foreach($provincies as $provincie)
                                     <option value="{{$provincie->provincie}}">{{$provincie->provincie}}
-                                        ({{$provincie->totaal}})
                                     </option>
                                 @endforeach
                             </select>

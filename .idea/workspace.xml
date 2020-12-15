@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/googlemap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/googlemap.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/googlemap.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -185,6 +184,8 @@
       <workItem from="1607681859890" duration="1106000" />
       <workItem from="1607693535364" duration="5328000" />
       <workItem from="1607716311806" duration="11000" />
+      <workItem from="1607959938663" duration="5033000" />
+      <workItem from="1608024914123" duration="20000" />
     </task>
     <servers />
   </component>
