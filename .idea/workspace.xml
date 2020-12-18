@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/googlemap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/googlemap.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/googlemap.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/headers/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/headers/googlemap.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/heat.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/heat.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -187,7 +185,9 @@
       <workItem from="1607716311806" duration="11000" />
       <workItem from="1607959938663" duration="5033000" />
       <workItem from="1608024914123" duration="1222000" />
-      <workItem from="1608060333488" duration="2781000" />
+      <workItem from="1608060333488" duration="3379000" />
+      <workItem from="1608104701972" duration="2362000" />
+      <workItem from="1608282221880" duration="587000" />
     </task>
     <servers />
   </component>

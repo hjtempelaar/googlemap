@@ -140,7 +140,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA600mKTHv1js99C8r7xM9nSVD8yip7t0&callback=initMapRespons"></script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEzhtXu_KuZnjHJ7mEvcTWllQrHKfi-Jw&callback=initMapRespons"></script>
     <script async defer
             src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
     <script>
