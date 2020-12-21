@@ -16,28 +16,28 @@ class G50HeatmapController extends Controller
      *
      * Ik wil graag een kaart hebben met 50 stippen (50 gemeenten). Per gemeente denk ik aan de volgende weergavevelden:
      * Overall ranking: 18
-    Inwoners: 108.558
-    Aantal evenementen: 75
-    Aantal Bezoeken: 1.074.557
-    Evenementensubsidie: € 1.917.298
-    Subsidie per inwoner: € 17,66
-    2:00
-    Een relevante filtermenu zou mijnsinziens moeten bestaan uit:
-    2:02
-    - provincie
-    - gemeente
-    - aantal inwoners
-    - evenementensubsidie (met van / tot )
-    - subsidie per inwoner (met van / tot )
+     * Inwoners: 108.558
+     * Aantal evenementen: 75
+     * Aantal Bezoeken: 1.074.557
+     * Evenementensubsidie: € 1.917.298
+     * Subsidie per inwoner: € 17,66
+     * 2:00
+     * Een relevante filtermenu zou mijnsinziens moeten bestaan uit:
+     * 2:02
+     * - provincie
+     * - gemeente
+     * - aantal inwoners
+     * - evenementensubsidie (met van / tot )
+     * - subsidie per inwoner (met van / tot )
      *
      * @return \Illuminate\Http\Response
      */
 
     public function index(Request $request)
     {
-          //
-        if ($request->has('m')){
-            if ($request->get('m') != "sdkkjdfjaksdfaksdjfakjdfkasdf"){
+        //
+        if ($request->has('m')) {
+            if ($request->get('m') != "sdkkjdfjaksdfaksdjfakjdfkasdf") {
                 return response("Wil je ook zo'n mooie monitor?");
 
             }
@@ -47,8 +47,8 @@ class G50HeatmapController extends Controller
         $provincies = G50Heatmap::select('provincie')->distinct()->orderBy('provincie')->pluck('provincie')->toArray();
         $gemeentes = G50Heatmap::select('gemeente')->distinct()->orderBy('gemeente')->pluck('gemeente')->toArray();
         $provincieCount = G50Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
-          return view('g50map')->with('provincies', $provincieCount)
-              ->with('gemeentes', $gemeentes);
+        return view('g50map')->with('provincies', $provincieCount)
+            ->with('gemeentes', $gemeentes);
         //return view('profile.edit');
 
     }
@@ -66,7 +66,7 @@ class G50HeatmapController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -77,7 +77,7 @@ class G50HeatmapController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\G50Heatmap  $g50Heatmap
+     * @param \App\Models\G50Heatmap $g50Heatmap
      * @return \Illuminate\Http\Response
      */
     public function show(G50Heatmap $g50Heatmap)
@@ -88,7 +88,7 @@ class G50HeatmapController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\G50Heatmap  $g50Heatmap
+     * @param \App\Models\G50Heatmap $g50Heatmap
      * @return \Illuminate\Http\Response
      */
     public function edit(G50Heatmap $g50Heatmap)
@@ -99,8 +99,8 @@ class G50HeatmapController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\G50Heatmap  $g50Heatmap
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\G50Heatmap $g50Heatmap
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, G50Heatmap $g50Heatmap)
@@ -111,7 +111,7 @@ class G50HeatmapController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\G50Heatmap  $g50Heatmap
+     * @param \App\Models\G50Heatmap $g50Heatmap
      * @return \Illuminate\Http\Response
      */
     public function destroy(G50Heatmap $g50Heatmap)
@@ -125,8 +125,10 @@ class G50HeatmapController extends Controller
         // get edities for given daterange with location and magnitude
         $gemeentes = G50Heatmap::where('provincie', '!=', "");
         if ($request->has('gemeente')) {
-            if (substr($request->get('gemeente'), 0, 4) != "Alle") {
-                $gemeentes->where('gemeente', '=', $request->get('gemeente'));
+            if ($request->get('gemeente') != 'null') {
+                if (substr($request->get('gemeente'), 0, 4) != "Alle") {
+                    $gemeentes->where('gemeente', '=', $request->get('gemeente'));
+                }
             }
         }
         if ($request->has('provincie')) {
@@ -138,7 +140,7 @@ class G50HeatmapController extends Controller
         if ($request->has('aantal_bezoeken_min') && $request->has('aantal_bezoeken_max')) {
             $aantal_bezoeken_min = $request->get('aantal_bezoeken_min');
             $aantal_bezoeken_max = $request->get('aantal_bezoeken_max');
-            if ($aantal_bezoeken_min > $aantal_bezoeken_max){
+            if ($aantal_bezoeken_min > $aantal_bezoeken_max) {
                 // wisselen!
                 $effe = $aantal_bezoeken_max;
                 $aantal_bezoeken_max = $aantal_bezoeken_min;
@@ -146,8 +148,8 @@ class G50HeatmapController extends Controller
             }
 
             if ($aantal_bezoeken_min != '' || $aantal_bezoeken_min != 'null') {
-                $gemeentes->where('bereik', '>=', $aantal_bezoeken_min);
-                $gemeentes->where('bereik', '<=', $aantal_bezoeken_max);
+                $gemeentes->where('aantal_bezoeken', '>=', $aantal_bezoeken_min);
+                $gemeentes->where('aantal_bezoeken', '<=', $aantal_bezoeken_max);
             }
 
         }
@@ -158,13 +160,13 @@ class G50HeatmapController extends Controller
             //{"type":"FeatureCollection",
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
             $features[] = array(
-                'aantal_bezoeken' => number_format(floatval($gemeente->aantal_bezoeken) ,0,',','.'),
+                'aantal_bezoeken' => number_format(floatval($gemeente->aantal_bezoeken), 0, ',', '.'),
                 'aantal_evenementen' => $gemeente->aantal_evenementen,
-                'evenement_subsidie' => '€ '. number_format(floatval(str_replace(",",".",$gemeente->evenement_subsidie)), 2, ',', '.'),
+                'evenement_subsidie' => '€ ' . number_format(floatval(str_replace(",", ".", $gemeente->evenement_subsidie)), 2, ',', '.'),
                 'inwoners' => $gemeente->inwoners,
                 'overall_ranking' => $gemeente->overall_ranking,
                 'provincie' => $gemeente->provincie,
-                'subsidie_per_inwoner' =>"€ " . number_format(floatval(str_replace(",",".",$gemeente->subsidie_per_inwoner)),2,',','.'),
+                'subsidie_per_inwoner' => "€ " . number_format(floatval(str_replace(",", ".", $gemeente->subsidie_per_inwoner)), 2, ',', '.'),
                 'titel' => $gemeente->gemeente,
                 'type' => 'Feature',
                 'properties' => array('place' => $gemeente->evenement,
@@ -177,7 +179,7 @@ class G50HeatmapController extends Controller
         }
 
 
-        $allfeatures = array('count' => count($features),'type' => 'FeatureCollection', 'features' => $features);
+        $allfeatures = array('count' => count($features), 'type' => 'FeatureCollection', 'features' => $features);
         return response()->jsonp('g50feedcallback', $allfeatures);
         //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }

@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/g50map.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/headers/g50.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/G50HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/G50HeatmapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/g50map.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/g50map.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +188,7 @@
       <workItem from="1608060333488" duration="3379000" />
       <workItem from="1608104701972" duration="2362000" />
       <workItem from="1608282221880" duration="2900000" />
-      <workItem from="1608541086413" duration="11741000" />
+      <workItem from="1608541086413" duration="12281000" />
     </task>
     <servers />
   </component>

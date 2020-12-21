@@ -39,7 +39,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Gemeente</label>
-                                <select class="form-control" name="categorie" data-toggle="select"
+                                <select class="form-control" name="gemeente" data-toggle="select"
                                         onchange="updateHeatmap()"
                                         data-placeholder="Select options">
                                     <option selected>Alle Gemeenten</option>
