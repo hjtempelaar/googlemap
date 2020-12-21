@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','App\Http\Controllers\HeatmapController@index');
+Route::get('/g50','App\Http\Controllers\G50HeatmapController@index');
+Route::get('/festival','App\Http\Controllers\HeatmapController@festival');
 Route::get('getfestivalheatmap','App\Http\Controllers\HeatmapController@festivalHeatMap');
+Route::get('getg50heatmap','App\Http\Controllers\G50HeatmapController@g50HeatMap');
 
 

@@ -144,6 +144,7 @@ class HeatmapController extends Controller
 
     public function festivalHeatMap(Request $request)
     {
+
         // get edities for given daterange with location and magnitude
         $festivals = Heatmap::where('provincie', '!=', "");
         if ($request->has('categorie')) {
@@ -199,8 +200,6 @@ class HeatmapController extends Controller
             }
 
         }
-
-
 
         //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $features = [];

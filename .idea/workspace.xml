@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/g50map.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/headers/g50.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/googlemap.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,15 +154,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts/headers" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\htdocs\googlemap\resources\views\layouts" />
       <recent name="D:\htdocs\googlemap\resources\views\layouts\headers" />
       <recent name="D:\htdocs\googlemap\resources\views" />
+      <recent name="D:\htdocs\googlemap\resources\views\layouts" />
       <recent name="D:\htdocs\googlemap\database\migrations" />
     </key>
   </component>
@@ -186,7 +189,8 @@
       <workItem from="1608024914123" duration="1222000" />
       <workItem from="1608060333488" duration="3379000" />
       <workItem from="1608104701972" duration="2362000" />
-      <workItem from="1608282221880" duration="2295000" />
+      <workItem from="1608282221880" duration="2900000" />
+      <workItem from="1608541086413" duration="11741000" />
     </task>
     <servers />
   </component>
