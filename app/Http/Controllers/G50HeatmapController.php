@@ -127,13 +127,13 @@ class G50HeatmapController extends Controller
         if ($request->has('gemeente')) {
             if ($request->get('gemeente') != 'null') {
                 if (substr($request->get('gemeente'), 0, 4) != "Alle") {
-                    $gemeentes->where('gemeente', '=', $request->get('gemeente'));
+                    $gemeentes->whereIn('gemeente', explode(",",$request->get('gemeente')));
                 }
             }
         }
         if ($request->has('provincie')) {
             if (substr($request->get('provincie'), 0, 4) != "Alle") {
-                $gemeentes->where('provincie', '=', $request->get('provincie'));
+                $gemeentes->whereIn('provincie', explode(",",$request->get('provincie')));
             }
         }
 
@@ -162,8 +162,8 @@ class G50HeatmapController extends Controller
             $features[] = array(
                 'aantal_bezoeken' => number_format(floatval($gemeente->aantal_bezoeken), 0, ',', '.'),
                 'aantal_evenementen' => $gemeente->aantal_evenementen,
-                'evenement_subsidie' => '€ ' . number_format(floatval(str_replace(",", ".", $gemeente->evenement_subsidie)), 2, ',', '.'),
-                'inwoners' => $gemeente->inwoners,
+                'evenement_subsidie' => '€ ' . number_format(floatval(str_replace(",", ".", $gemeente->evenement_subsidie)), 0, ',', '.'),
+                'inwoners' => number_format(floatval($gemeente->inwoners), 0, ',', '.'),
                 'overall_ranking' => $gemeente->overall_ranking,
                 'provincie' => $gemeente->provincie,
                 'subsidie_per_inwoner' => "€ " . number_format(floatval(str_replace(",", ".", $gemeente->subsidie_per_inwoner)), 2, ',', '.'),

@@ -27,7 +27,7 @@
                                                     </div>-->
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Provincie</label>
-                                <select class="form-control" name="provincie" data-toggle="select"
+                                <select class="form-control" id="provincie" name="provincie" data-toggle="select" multiple
                                         onchange="updateHeatmap()"
                                         data-placeholder="Select options">
                                     <option selected>Alle Provincies</option>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Gemeente</label>
-                                <select class="form-control" name="gemeente" data-toggle="select"
+                                <select class="form-control" id="gemeente" name="gemeente" data-toggle="select" multiple
                                         onchange="updateHeatmap()"
                                         data-placeholder="Select options">
                                     <option selected>Alle Gemeenten</option>
@@ -49,41 +49,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">aantal bezoeken vanaf</label>
-                                <select class="form-control" name="bezoeken_min" data-toggle="select"
-                                        onchange="updateHeatmap()"
-                                        data-placeholder="Select options">
-                                    <option value="0" selected>Bezoeken Vanaf:</option>
-                                    <option value='0'>0</option>
-                                    <option value='3000'>3.000</option>
-                                    <option value='5000'>5.000</option>
-                                    <option value='10000'>10.000</option>
-                                    <option value='50000'>50.000</option>
-                                    <option value='100000'>100.000</option>
-                                    <option value='200000'>200.000</option>
-                                    <option value='500000'>500.000</option>
-                                    <option value='2000000'>2.000.000</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">aantal bezoeken tot en
-                                    met</label>
-                                <select class="form-control" name="bezoeken_max" data-toggle="select"
-                                        onchange="updateHeatmap()"
-                                        data-placeholder="Select options">
-                                    <option value="50000000" selected>Bezoeken tot en met:</option>
-                                    <option value='0'>0</option>
-                                    <option value='3000'>3.000</option>
-                                    <option value='5000'>5.000</option>
-                                    <option value='10000'>10.000</option>
-                                    <option value='50000'>50.000</option>
-                                    <option value='100000'>100.000</option>
-                                    <option value='200000'>200.000</option>
-                                    <option value='500000'>500.000</option>
-                                    <option value='2000000'>2.000.000</option>
-                                </select>
-                            </div>
+
 
                             <div class="form-group">
                                 <button type="button" onclick="updateHeatmap()"
@@ -249,7 +215,7 @@
                                         <span class="fa-li">
                                             <i class="fas fa-euro-sign"></i>
                                         </span>
-                                       Evenementen Subsidie:  ${markerData.evenement_subsidie}
+                                       Evenementensubsidie:  ${markerData.evenement_subsidie}
                                     </li>
  <li>
                                         <span class="fa-li">
@@ -294,10 +260,13 @@
 
             var script = document.createElement('script');
             var formData = new FormData(document.querySelector('form'));
-            script.setAttribute('src', '{{url('getg50heatmap')}}' + '?provincie=' + formData.get('provincie')
-                + '&gemeente=' + formData.get('gemeente')
-                + '&aantal_bezoeken_min=' + formData.get('bezoeken_min')
-                + '&aantal_bezoeken_max=' + formData.get('bezoeken_max'));
+            var gemeentes = $('#gemeente').val();
+            var provincies = $('#provincie').val();
+            console.log(gemeentes);
+
+            script.setAttribute('src', '{{url('getg50heatmap')}}' + '?provincie=' + provincies
+                + '&gemeente=' + gemeentes
+            );
             document.getElementsByTagName('head')[0].appendChild(script);
         }
 
