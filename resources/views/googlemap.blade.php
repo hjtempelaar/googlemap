@@ -1,5 +1,5 @@
 @extends('layouts.heat')
-@extends('layouts.headers.googlemap')
+
 
 @section('content')
 
@@ -12,11 +12,15 @@
         </div>
         <div class="row">
             <div class="col-xl-3" >
+
                 <div style="margin-left: 20px;">
-                <div class="row">
-                    <h1>Filters</h1>
+                <div class="row" style="background-color: #f7b941">
+                    <h1>Respons Festival Monitor</h1>
                 </div>
                 <div class="row">
+                    <img alt="Respons" style="max-width:100%;
+    height:auto;"
+                         src="https://respons.nl/wp-content/uploads/2019/06/Respons-2018_witte-gloed_NL_resized.png">
                     <form action="#">
 <!--                        <div class="form-group">
                             <label class="form-control-label">Aantal bezoeken</label>

@@ -193,9 +193,8 @@
                             <div id="content">
                                 <h4>${markerData.titel}</h4>
                                 <ul class="fa-ul">
-                                    <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-calendar"></i>
+                                    <li><span class="fa-li">
+                                            <i class="fas fa-trophy"></i>
                                         </span>
                                        Ranking: #tbd ${markerData.overall_ranking}
                                     </li>
