@@ -20,7 +20,7 @@
                 <div class="row">
                     <img alt="Respons" style="max-width:100%;
     height:auto;"
-                         src="https://respons.nl/wp-content/uploads/2019/06/Respons-2018_witte-gloed_NL_resized.png">
+                         src="{{asset('argon')}}/img/brand/Respons-2018_witte-gloed_NL_resized.png">
                     <form action="#">
 <!--                        <div class="form-group">
                             <label class="form-control-label">Aantal bezoeken</label>
