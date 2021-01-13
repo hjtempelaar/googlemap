@@ -14,67 +14,71 @@
             <div class="col-xl-3">
                 <div style="margin-left: 20px;">
                     <div class="row" style="background-color: #f7b941">
-                        <h1>Respons G50 Monitor</h1>
+                        <h1 style="padding-left: 15px">Respons G50 Monitor</h1>
+                        <h3 style="padding-left: 15px">Totalen & gemiddelden 2015 - 2019</h3>
                     </div>
-                    <div class="row">
-                        <h1>Filters</h1>
-                    </div>
-                    <div class="row">
-                        <form action="#">
-                            <!--                        <div class="form-group">
-                                                        <label class="form-control-label">Aantal bezoeken</label>
-                                                        <p id="aantal_bezoeken">0</p>
-                                                        <input type="hidden" id="aantal_bezoeken_min" name="aantal_bezoeken_min">
-                                                        <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
-                                                        <div id="slider-range"></div>
-                                                    </div>-->
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Provincie</label>
-                                <select class="form-control" id="provincie" name="provincie" data-toggle="select" multiple
-                                        onchange="updateHeatmap()"
-                                        data-placeholder="Select options">
-                                    <option selected>Alle Provincies</option>
-                                    @foreach($provincies as $provincie)
-                                        <option value="{{$provincie->provincie}}">{{$provincie->provincie}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Gemeente</label>
-                                <select class="form-control" id="gemeente" name="gemeente" data-toggle="select" multiple
-                                        onchange="updateHeatmap()"
-                                        data-placeholder="Select options">
-                                    <option selected>Alle Gemeenten</option>
-                                    @foreach($gemeentes as $gemeente)
-                                        <option>{{$gemeente}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <div class="float-right">
+                        <div class="row">
+                            <h1>Filters</h1>
+                        </div>
+                        <div class="row">
+                            <form action="#">
+                                <!--                        <div class="form-group">
+                                                            <label class="form-control-label">Aantal bezoeken</label>
+                                                            <p id="aantal_bezoeken">0</p>
+                                                            <input type="hidden" id="aantal_bezoeken_min" name="aantal_bezoeken_min">
+                                                            <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
+                                                            <div id="slider-range"></div>
+                                                        </div>-->
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Provincie</label>
+                                    <select class="form-control" id="provincie" name="provincie" data-toggle="select"
+                                            multiple
+                                            onchange="updateHeatmap()"
+                                            data-placeholder="Select options">
+                                        <option selected>Alle Provincies</option>
+                                        @foreach($provincies as $provincie)
+                                            <option value="{{$provincie->provincie}}">{{$provincie->provincie}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Gemeente</label>
+                                    <select class="form-control" id="gemeente" name="gemeente" data-toggle="select"
+                                            multiple
+                                            onchange="updateHeatmap()"
+                                            data-placeholder="Select options">
+                                        <option selected>Alle Gemeenten</option>
+                                        @foreach($gemeentes as $gemeente)
+                                            <option>{{$gemeente}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
 
+                                <div class="form-group">
+                                    <button type="button" onclick="updateHeatmap()"
+                                            class="btn btn-success btn-lg btn-block">
+                                        Filter
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" onclick="initMapRespons(), form.reset()"
+                                            class="btn btn-success btn-lg btn-block">
+                                        Filter Reset
+                                    </button>
+                                </div>
+                                <h4>
+                                    <span id="result_count">0</span> resultaten
+                                </h4>
+                            </form>
 
-                            <div class="form-group">
-                                <button type="button" onclick="updateHeatmap()"
-                                        class="btn btn-success btn-lg btn-block">
-                                    Filter
-                                </button>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" onclick="initMapRespons(), form.reset()"
-                                        class="btn btn-success btn-lg btn-block">
-                                    Filter Reset
-                                </button>
-                            </div>
-                            <h4>
-                                <span id="result_count">0</span> resultaten
-                            </h4>
-                        </form>
-
-                    </div>
-                    <img alt="Respons" style="max-width:100%;
+                        </div>
+                        <img alt="Respons" style="max-width:100%;
     height:auto;"
-                         src="{{asset('argon')}}/img/brand/Respons-2018_witte-gloed_NL_resized.png">
+                             src="{{asset('argon')}}/img/brand/Respons-2018_witte-gloed_NL_resized.png">
+                    </div>
                 </div>
 
             </div>
