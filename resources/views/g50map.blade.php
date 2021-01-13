@@ -202,7 +202,7 @@
                                     <li><span class="fa-li">
                                             <i class="fas fa-trophy"></i>
                                         </span>
-                                       Ranking: #tbd ${markerData.overall_ranking}
+                                       Ranking: ${markerData.overall_ranking}
                                     </li>
                                      <li>
                                         <span class="fa-li">
