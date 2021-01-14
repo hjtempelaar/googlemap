@@ -241,7 +241,7 @@
                                         Subsidie per inwoner:  ${markerData.subsidie_per_inwoner}
                                         </li>
                                     </ul>
-                                    <p>
+                                    <p class="m-0">
                                         <img alt="Respons" style="width:42px; height:auto;" src="{{asset('argon')}}/img/brand/Respons-2018_witte-gloed_NL_resized.png">
                                         <small>Respons.nl</small>
                                     </p>
