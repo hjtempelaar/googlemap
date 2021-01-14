@@ -223,7 +223,7 @@
                                     </li>
  <li>
                                         <span class="fa-li">
-                                            <i class="">#</i>
+                                         <i class="fas fa-hashtag"></i>
                                         </span>
                                        Aantal Evenementen:  ${markerData.aantal_evenementen}
                                     </li>
