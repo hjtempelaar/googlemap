@@ -105,10 +105,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRJ6zKv7SqiAXRYOq5Ok3v9wys0qpLNhs&callback=initMapRespons"></script>
-    <script async defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRJ6zKv7SqiAXRYOq5Ok3v9wys0qpLNhs&callback=initMapRespons"></script>
+    <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+    <script src="/js/dom-to-image-more.min.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
     <script>
         var isIE = false; // Script toevoegen voor deze check
 
@@ -201,49 +201,55 @@
                     oms.addMarker(marker, function (e) {
                         var infoWindowClickContent = `
                             <div id="content">
-                                <h4>${markerData.titel}</h4>
-                                <ul class="fa-ul">
-                                    <li><span class="fa-li">
-                                            <i class="fas fa-trophy"></i>
-                                        </span>
-                                       Ranking: ${markerData.overall_ranking}
-                                    </li>
+                                <div id="export_container">
+                                    <h4>${markerData.titel}</h4>
+                                    <ul class="fa-ul">
+                                        <li><span class="fa-li">
+                                                <i class="fas fa-trophy"></i>
+                                            </span>
+                                        Ranking: ${markerData.overall_ranking}
+                                        </li>
 
-                                     <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-street-view"></i>
-                                        </span>
-                                       Inwoners:  ${markerData.inwoners}
-                                    </li>
- <li>
-                                        <span class="fa-li">
-                                         <i class="fas fa-hashtag"></i>
-                                        </span>
-                                       Aantal Evenementen:  ${markerData.aantal_evenementen}
-                                    </li>
-  <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-users"></i>
-                                        </span>
-                                        Bezoeken: ${markerData.aantal_bezoeken}
-                                    </li>
-
- <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-euro-sign"></i>
-                                        </span>
-                                       Evenementensubsidie:  ${markerData.evenement_subsidie}
-                                    </li>
- <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-euro-sign"></i>
-                                        </span>
-                                       Subsidie per inwoner:  ${markerData.subsidie_per_inwoner}
-                                    </li>
-
-
-
-                                </ul>
+                                        <li>
+                                            <span class="fa-li">
+                                                <i class="fas fa-street-view"></i>
+                                            </span>
+                                        Inwoners:  ${markerData.inwoners}
+                                        </li>
+                                        <li>
+                                            <span class="fa-li">
+                                            <i class="fas fa-hashtag"></i>
+                                            </span>
+                                        Aantal Evenementen:  ${markerData.aantal_evenementen}
+                                        </li>
+                                        <li>
+                                            <span class="fa-li">
+                                                <i class="fas fa-users"></i>
+                                            </span>
+                                            Bezoeken: ${markerData.aantal_bezoeken}
+                                        </li>
+                                        <li>
+                                            <span class="fa-li">
+                                                <i class="fas fa-euro-sign"></i>
+                                            </span>
+                                        Evenementensubsidie:  ${markerData.evenement_subsidie}
+                                        </li>
+                                        <li>
+                                            <span class="fa-li">
+                                                <i class="fas fa-euro-sign"></i>
+                                            </span>
+                                        Subsidie per inwoner:  ${markerData.subsidie_per_inwoner}
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <img alt="Respons" style="width:42px; height:auto;" src="{{asset('argon')}}/img/brand/Respons-2018_witte-gloed_NL_resized.png">
+                                        <small>Respons.nl</small>
+                                    </p>
+                                </div>
+                                <br>
+                                <button type="button" onclick="exportToPNG()" class="btn btn-success btn-sm btn-block">
+                                    Exporteer naar PNG
+                                </button>
                             </div>
                         `
 
@@ -322,6 +328,26 @@
         $("#slider-range").on("slidechange", function (event, ui) {
             updateHeatmap();
         });
+
+        // DOM to image
+        function exportToPNG() {
+            var domNode = document.getElementById('export_container');
+            var scale = 2;
+            var padding = 10;
+            domtoimage.toBlob(domNode, {
+                bgcolor: '#fff',
+                width: (domNode.clientWidth + (padding * 2)) * scale,
+                height: (domNode.clientHeight + (padding * 2)) * scale,
+                style: {
+                    padding: padding + 'px',
+                    transform: 'scale('+ scale +')',
+                    transformOrigin: 'top left'
+                }
+            })
+            .then(function (blob) {
+                window.saveAs(blob, 'response_festival_monitor_export.png');
+            });
+        }
     </script>
 @endpush
 
