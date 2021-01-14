@@ -215,18 +215,19 @@
                                         </span>
                                        Inwoners:  ${markerData.inwoners}
                                     </li>
-  <li>
-                                        <span class="fa-li">
-                                            <i class="fas fa-users"></i>
-                                        </span>
-                                        Bezoeken: ${markerData.aantal_bezoeken}
-                                    </li>
  <li>
                                         <span class="fa-li">
                                          <i class="fas fa-hashtag"></i>
                                         </span>
                                        Aantal Evenementen:  ${markerData.aantal_evenementen}
                                     </li>
+  <li>
+                                        <span class="fa-li">
+                                            <i class="fas fa-users"></i>
+                                        </span>
+                                        Bezoeken: ${markerData.aantal_bezoeken}
+                                    </li>
+
  <li>
                                         <span class="fa-li">
                                             <i class="fas fa-euro-sign"></i>
