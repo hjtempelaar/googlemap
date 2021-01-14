@@ -148,6 +148,11 @@
     <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
     <script src="/js/dom-to-image-more.min.js"></script>
     <script src="/js/FileSaver.min.js"></script>
+    <style>
+        .gm-style-iw {
+            width: 300px;
+        }
+    </style>
     <script>
         var isIE = false; // Script toevoegen voor deze check
 
