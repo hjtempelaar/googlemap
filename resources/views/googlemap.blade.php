@@ -236,9 +236,9 @@
                     });
 
                     // Listen to mouseout
-                    google.maps.event.addListener(marker, 'mouseout', function () {
-                        InfoWindow.close();
-                    });
+                    // google.maps.event.addListener(marker, 'mouseout', function () {
+                    //     InfoWindow.close();
+                    // });
 
                     // Listen to click
                     google.maps.event.addListener(marker, 'click', InfoWindowClose);
