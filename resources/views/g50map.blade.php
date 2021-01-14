@@ -237,7 +237,7 @@
                                             <span class="fa-li">
                                                 <i class="fas fa-euro-sign"></i>
                                             </span>
-                                        Evenementensubsidie:  ${markerData.evenement_subsidie}
+                                        Subsidie:  ${markerData.evenement_subsidie}
                                         </li>
                                         <li>
                                             <span class="fa-li">
