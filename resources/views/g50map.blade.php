@@ -208,6 +208,7 @@
                                         </span>
                                        Ranking: ${markerData.overall_ranking}
                                     </li>
+
                                      <li>
                                         <span class="fa-li">
                                             <i class="fas fa-street-view"></i>
@@ -219,6 +220,12 @@
                                             <i class="fas fa-users"></i>
                                         </span>
                                         Bezoeken: ${markerData.aantal_bezoeken}
+                                    </li>
+ <li>
+                                        <span class="fa-li">
+                                            <i class="">#</i>
+                                        </span>
+                                       Aantal Evenementen:  ${markerData.aantal_evenementen}
                                     </li>
  <li>
                                         <span class="fa-li">
