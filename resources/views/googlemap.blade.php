@@ -71,6 +71,7 @@
                             <select class="form-control" name="maand" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
                                 <option selected>Alle Maanden</option>
+                                <option>Geen Doorgang</option>
                                 @foreach($maanden as $maand)
                                     <option>{{$maand}}</option>
                                 @endforeach

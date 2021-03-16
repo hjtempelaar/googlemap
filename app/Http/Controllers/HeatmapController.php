@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class HeatmapController extends Controller
 {
-    public function zoek($zoek){
+    public function zoek($zoek)
+    {
         $festivals = FestivalHeatmap::where('provincie', '!=', "");
         if ($zoek != '') {
             $festivals->where('evenement', 'like', '%' . $zoek . '%')
@@ -21,6 +22,7 @@ class HeatmapController extends Controller
 
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +30,8 @@ class HeatmapController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('m')){
-            if ($request->get('m') != "sdkkjdfjaksdfaksdjfakjdfkasdf"){
+        if ($request->has('m')) {
+            if ($request->get('m') != "sdkkjdfjaksdfaksdjfakjdfkasdf") {
                 return response("Wil je ook zo'n mooie monitor?");
 
             }
@@ -73,7 +75,7 @@ class HeatmapController extends Controller
         return view('googlemap')->with('provincies', $provincieCount)
             ->with('subcategorienamen', $subCategorieNaam)
             ->with('maanden', $months)
-            ->with('jaren',$years);
+            ->with('jaren', $years);
         //return view('profile.edit');
 
     }
@@ -163,41 +165,48 @@ class HeatmapController extends Controller
         if ($request->has('jaar')) {
             if (substr($request->get('jaar'), 0, 4) != "Alle") {
                 $year = $request->get('jaar');
-                $festivals->whereRaw('YEAR(startdatum) = ?', $year);
+                $festivals->where('jaar', $year);
             }
-
         }
+
         if ($request->has('maand')) {
-            if (substr($request->get('maand'), 0, 4) != "Alle") {
-                $months = array(
-                    "januari" => 1,
-                    "februari" => 2,
-                    "maart" => 3,
-                    "april" => 4,
-                    "mei" => 5,
-                    "juni" => 6,
-                    "Juli" => 7,
-                    "augustus" => 8,
-                    "september" => 9,
-                    "oktober" => 10,
-                    "november" => 11,
-                    "december" => 12
-                );
-                $month = $months[$request->get('maand')];
-                $festivals->whereRaw('MONTH(startdatum) = ?', [$month]);
+            if ($request->get('maand') == "Geen Doorgang") {
+                $festivals->where('doorgang','=',0);
+
+            } else {
+                $festivals->where('doorgang','=',1);
+                if (substr($request->get('maand'), 0, 4) != "Alle") {
+                    $months = array(
+                        "januari" => 1,
+                        "februari" => 2,
+                        "maart" => 3,
+                        "april" => 4,
+                        "mei" => 5,
+                        "juni" => 6,
+                        "Juli" => 7,
+                        "augustus" => 8,
+                        "september" => 9,
+                        "oktober" => 10,
+                        "november" => 11,
+                        "december" => 12
+                    );
+                    $month = $months[$request->get('maand')];
+                    $festivals->whereRaw('MONTH(startdatum) = ?', [$month]);
+                }
             }
 
+
         }
-        if ($request->has('zoek')){
+        if ($request->has('zoek')) {
             $zoek = $request->get('zoek');
             if ($zoek != '' || $zoek != 'null') {
-               $festivals->where('zoekstring', 'like', '%' . $zoek . '%');
+                $festivals->where('zoekstring', 'like', '%' . $zoek . '%');
             }
         }
         if ($request->has('aantal_bezoeken_min') && $request->has('aantal_bezoeken_max')) {
             $aantal_bezoeken_min = $request->get('aantal_bezoeken_min');
             $aantal_bezoeken_max = $request->get('aantal_bezoeken_max');
-            if ($aantal_bezoeken_min > $aantal_bezoeken_max){
+            if ($aantal_bezoeken_min > $aantal_bezoeken_max) {
                 // wisselen!
                 $effe = $aantal_bezoeken_max;
                 $aantal_bezoeken_max = $aantal_bezoeken_min;
@@ -211,12 +220,12 @@ class HeatmapController extends Controller
 
         }
 
-        //$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
+//$provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
         $features = [];
         foreach ($festivals->get() as $festival) {
             //{"type":"FeatureCollection",
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
-            if($festival->startdatum) {
+            if ($festival->startdatum) {
                 $startdatum = Carbon::createFromFormat('Y-m-d', $festival->startdatum)->format('d-m-Y');
             } else {
                 $startdatum = ' nvt ';
@@ -247,9 +256,9 @@ class HeatmapController extends Controller
         }
 
 
-        $allfeatures = array('count' => count($features),'type' => 'FeatureCollection', 'features' => $features);
+        $allfeatures = array('count' => count($features), 'type' => 'FeatureCollection', 'features' => $features);
         return response()->jsonp('eqfeedcallback', $allfeatures);
-        //return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
+//return "eqfeedcallback(" . json_encode($allfeatures, JSON_PRETTY_PRINT) . ");";
     }
 
 }
