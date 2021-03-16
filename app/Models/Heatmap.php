@@ -81,6 +81,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Heatmap whereVormcategorienaam($value)
  * @mixin \Eloquent
  * @property-read mixed $zoekstring
+ * @method static \Illuminate\Database\Eloquent\Builder|Heatmap whereZoekstring($value)
  */
 class Heatmap extends Model
 {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FestivalHeatmap;
 use App\Models\Heatmap;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class HeatmapController extends Controller
 {
     public function zoek($zoek){
-        $festivals = Heatmap::where('provincie', '!=', "");
+        $festivals = FestivalHeatmap::where('provincie', '!=', "");
         if ($zoek != '') {
             $festivals->where('evenement', 'like', '%' . $zoek . '%')
                 ->orWhere('nen_plaats', 'like', '%' . strtoupper($zoek) . '%')
@@ -36,7 +37,7 @@ class HeatmapController extends Controller
             return response("");
         }
         //
-        $provincie = Heatmap::select('provincie')->distinct()->orderBy('provincie')->pluck('provincie')->toArray();
+        $provincie = FestivalHeatmap::select('provincie')->distinct()->orderBy('provincie')->pluck('provincie')->toArray();
         //$maanden = Heatmap::select(DB::raw('SELECT DISTINCT  MONTHNAME(startdatum) as maanden'));
         $monthss = array(
             "January" => "januari",
@@ -66,11 +67,13 @@ class HeatmapController extends Controller
             "november",
             "december"
         );
-        $provincieCount = Heatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
-        $subCategorieNaam = Heatmap::select('subcategorienaam')->orderBy('subcategorienaam')->distinct()->pluck('subcategorienaam')->toArray();
+        $provincieCount = FestivalHeatmap::select(DB::raw('provincie as provincie, count(*) as totaal'))->groupBy('provincie')->get();
+        $subCategorieNaam = FestivalHeatmap::select('subcategorienaam')->orderBy('subcategorienaam')->distinct()->pluck('subcategorienaam')->toArray();
+        $years = FestivalHeatmap::select('jaar')->orderBy('jaar')->distinct()->pluck('jaar')->toArray();
         return view('googlemap')->with('provincies', $provincieCount)
             ->with('subcategorienamen', $subCategorieNaam)
-            ->with('maanden', $months);
+            ->with('maanden', $months)
+            ->with('jaren',$years);
         //return view('profile.edit');
 
     }
@@ -146,7 +149,7 @@ class HeatmapController extends Controller
     {
 
         // get edities for given daterange with location and magnitude
-        $festivals = Heatmap::where('provincie', '!=', "");
+        $festivals = FestivalHeatmap::where('provincie', '!=', "");
         if ($request->has('categorie')) {
             if (substr($request->get('categorie'), 0, 4) != "Alle") {
                 $festivals->where('subcategorienaam', '=', $request->get('categorie'));
@@ -156,6 +159,13 @@ class HeatmapController extends Controller
             if (substr($request->get('provincie'), 0, 4) != "Alle") {
                 $festivals->where('provincie', '=', $request->get('provincie'));
             }
+        }
+        if ($request->has('jaar')) {
+            if (substr($request->get('jaar'), 0, 4) != "Alle") {
+                $year = $request->get('jaar');
+                $festivals->whereRaw('YEAR(startdatum) = ?', $year);
+            }
+
         }
         if ($request->has('maand')) {
             if (substr($request->get('maand'), 0, 4) != "Alle") {
@@ -206,10 +216,22 @@ class HeatmapController extends Controller
         foreach ($festivals->get() as $festival) {
             //{"type":"FeatureCollection",
             //"features":[{"type":"Feature","properties":{"mag":3.3,"
+            if($festival->startdatum) {
+                $startdatum = Carbon::createFromFormat('Y-m-d', $festival->startdatum)->format('d-m-Y');
+            } else {
+                $startdatum = ' nvt ';
+            }
+            if ($festival->eimddatum) {
+                $einddatum = Carbon::createFromFormat('Y-m-d', $festival->einddatum)->format('d-m-Y');
+            } else {
+                $einddatum = ' nvt ';
+            }
             $features[] = array(
                 'titel' => $festival->evenement,
-                'startdatum' => Carbon::createFromFormat('Y-m-d',$festival->startdatum)->format('d-m-Y'),
-                'einddatum' => Carbon::createFromFormat('Y-m-d',$festival->einddatum)->format('d-m-Y'),
+                'jaar' => $festival->jaar,
+                'datum_notitie_lib' => $festival->datum_notitie_lib,
+                'startdatum' => $startdatum, //Carbon::createFromFormat('Y-m-d',$festival->startdatum)->format('d-m-Y'),
+                'einddatum' => $einddatum, //Carbon::createFromFormat('Y-m-d',$festival->einddatum)->format('d-m-Y'),
                 'locatie' => $festival->locatienaam,
                 'plaats' => $festival->nen_plaats . "(" . $festival->gemeente . ")",
                 'genre' => $festival->subcategorienaam,

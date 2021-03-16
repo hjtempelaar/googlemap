@@ -29,7 +29,8 @@
                             <input type="hidden" id="aantal_bezoeken_max" name="aantal_bezoeken_max">
                             <div id="slider-range"></div>
                         </div>-->
-                        <div class="form-group">
+                        <div class="row">
+                        <div class="form-group col-lg-6">
                             <label for="example-text-input" class="form-control-label">Provincie</label>
                             <select class="form-control" name="provincie" data-toggle="select"
                                     onchange="updateHeatmap()"
@@ -41,7 +42,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="example-text-input" class="form-control-label">Genre</label>
                             <select class="form-control" name="categorie" data-toggle="select"
                                     onchange="updateHeatmap()"
@@ -52,7 +53,20 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-6">
+                            <label for="example-text-input" class="form-control-label">Jaar</label>
+                            <select class="form-control" name="jaar" data-toggle="select" onchange="updateHeatmap()"
+                                    data-placeholder="Select options">
+                                <option selected>Alle Jaren</option>
+                                @foreach($jaren as $jaar)
+                                    <option>{{$jaar}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="form-group col-6">
                             <label for="example-text-input" class="form-control-label">Maand</label>
                             <select class="form-control" name="maand" data-toggle="select" onchange="updateHeatmap()"
                                     data-placeholder="Select options">
@@ -63,7 +77,9 @@
                             </select>
 
                         </div>
-                        <div class="form-group">
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-lg-6">
                             <label for="example-text-input" class="form-control-label">aantal bezoeken vanaf</label>
                             <select class="form-control" name="bezoeken_min" data-toggle="select"
                                     onchange="updateHeatmap()"
@@ -80,7 +96,7 @@
                                 <option value='2000000'>2.000.000</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="example-text-input" class="form-control-label">aantal bezoeken tot en met</label>
                             <select class="form-control" name="bezoeken_max" data-toggle="select"
                                     onchange="updateHeatmap()"
@@ -96,6 +112,7 @@
                                 <option value='500000'>500.000</option>
                                 <option value='2000000'>2.000.000</option>
                             </select>
+                        </div>
                         </div>
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Zoeken...</label>
@@ -317,6 +334,7 @@
             var formData = new FormData(document.querySelector('form'));
             script.setAttribute('src', '{{url('getfestivalheatmap')}}' + '?provincie=' + formData.get('provincie')
                 + '&maand=' + formData.get('maand')
+                + '&jaar=' + formData.get('jaar')
                 + '&categorie=' + encodeURI(formData.get('categorie'))
                 + '&zoek=' + formData.get('zoek')
                 + '&aantal_bezoeken_min=' + formData.get('bezoeken_min')
