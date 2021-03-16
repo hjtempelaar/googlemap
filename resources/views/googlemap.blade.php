@@ -14,9 +14,12 @@
             <div class="col-xl-3" >
 
                 <div style="margin-left: 20px;">
-                <div class="row col" style="background-color: #f7b941">
-                    <h1 class="text-center">Respons Festival Monitor</h1>
+                <div class="row" style="background-color: #f7b941">
+                    <div class="col text-center">
+                    <h1>Respons Festival Monitor</h1>
+                    </div>
                 </div>
+
                 <div class="row">
                     <img alt="Respons" style="max-width:100%;
     height:auto;"
