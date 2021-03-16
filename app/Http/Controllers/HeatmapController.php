@@ -221,7 +221,7 @@ class HeatmapController extends Controller
             } else {
                 $startdatum = ' nvt ';
             }
-            if ($festival->eimddatum) {
+            if ($festival->einddatum) {
                 $einddatum = Carbon::createFromFormat('Y-m-d', $festival->einddatum)->format('d-m-Y');
             } else {
                 $einddatum = ' nvt ';
