@@ -1,6 +1,4 @@
 @extends('layouts.heat')
-
-
 @section('content')
 
     <div class="container-fluid">

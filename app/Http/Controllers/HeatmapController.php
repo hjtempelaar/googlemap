@@ -195,8 +195,8 @@ class HeatmapController extends Controller
                 }
             }
 
-
         }
+        $festivals->whereNotNull('latitude');
         if ($request->has('zoek')) {
             $zoek = $request->get('zoek');
             if ($zoek != '' || $zoek != 'null') {
