@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="20b828b3-b190-4d45-aec9-99c346d1a1fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HeatmapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/googlemap.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/googlemap.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/g50map.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/g50map.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,6 +207,8 @@
       <workItem from="1615892807289" duration="11096000" />
       <workItem from="1615910639178" duration="890000" />
       <workItem from="1615971720699" duration="408000" />
+      <workItem from="1615974346793" duration="26000" />
+      <workItem from="1617611941045" duration="519000" />
     </task>
     <servers />
   </component>
